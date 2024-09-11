@@ -135,11 +135,16 @@
     }
 
     function copySerialGroup(serials) {
-      var copyText = serials.join("\n");
-      navigator.clipboard.writeText(copyText).then(function () {
-        //alert("Serial numbers copied!");
-      });
-    }
+  var copyText = serials.join("\n");
+  navigator.clipboard.writeText(copyText)
+    .then(function () {
+      console.log("Serial numbers copied successfully!"); // Log success message
+    })
+    .catch(function (err) {
+      console.error("Failed to copy serial numbers: ", err); // Log any errors
+    });
+}
+
 
     function generateSerialNumbers() {
       var codesInput = document.getElementById("codesInput").value;
