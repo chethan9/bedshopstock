@@ -134,12 +134,7 @@
       table.appendChild(tbody);
     }
 
-    function copySerialGroup(serials) {
-      var copyText = serials.join("\n");
-      navigator.clipboard.writeText(copyText).then(function () {
-        alert("Serial numbers copied!");
-      });
-    }
+  
 
     function generateSerialNumbers() {
       var codesInput = document.getElementById("codesInput").value;
