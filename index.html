@@ -43,31 +43,48 @@
     }
 
     .button {
-      padding: 10px 16px;
+      padding: 8px 12px;
       border-radius: 6px;
       font-size: 14px;
       font-weight: 500;
+      border: 1px solid #ddd;
       transition: all 0.2s ease-in-out;
     }
 
     .button-primary {
       background: #2563eb;
       color: white;
-      box-shadow: 0 3px 6px rgba(37, 99, 235, 0.2);
+      border: none;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
     }
 
     .button-primary:hover {
       background: #1d4ed8;
-      transform: scale(1.03);
+      transform: scale(1.02);
     }
 
     .button-secondary {
-      background: #f3f4f6;
+      background: #f9f9f9;
       color: #333;
+      border: 1px solid #e0e0e0;
     }
 
     .button-secondary:hover {
-      background: #e5e7eb;
+      background: #f1f1f1;
+    }
+
+    .copy-btn {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 6px 10px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 6px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .copy-btn:hover {
+      background: #f3f3f3;
     }
 
     .table-group {
@@ -188,14 +205,12 @@
       headerRow.innerHTML = `
         <td class="border p-2 text-left">${code}</td>
         <td colspan="2" class="border p-2 text-right">
-          <button class="button button-primary text-sm" onclick="copySerialGroup('${serials.join("\n")}')">Copy Group</button>
+          <button class="copy-btn text-sm" onclick="copySerialGroup('${serials.join("\n")}')">Copy Group</button>
         </td>`;
       tbody.appendChild(headerRow);
 
       serials.forEach((serial, index) => {
         let row = document.createElement("tr");
-        row.classList.add("group-rows");
-        if (index >= 2) row.style.display = "none";
         row.innerHTML = `<td class="border p-2 text-left"></td>
                          <td class="border p-2 text-left">${serial}</td>
                          <td class="border p-2 text-left"></td>`;
@@ -205,23 +220,8 @@
       table.appendChild(tbody);
     }
 
-    function expandAll() {
-      document.querySelectorAll(".group-rows").forEach(row => row.style.display = "table-row");
-    }
-
-    function minimizeAll() {
-      document.querySelectorAll(".group-rows").forEach((row, index) => {
-        if (index >= 2) row.style.display = "none";
-      });
-    }
-
     function copySerialGroup(serials) {
       navigator.clipboard.writeText(serials).then(() => alert("Copied Entire Group!"));
-    }
-
-    function clearInputs() {
-      document.querySelectorAll("input, textarea").forEach(input => input.value = "");
-      document.getElementById("resultTable").innerHTML = "";
     }
   </script>
 </body>
