@@ -4,147 +4,130 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Serial Number Generator</title>
-  <!-- Latest Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <!-- Google Fonts: Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background: #f8f9fa;
       font-family: 'Inter', sans-serif;
-      padding: 20px;
+      background: #f9fafb;
     }
-    /* Center the card and give it a modern notional look */
-    .card-container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 8px;
+    .card {
+      max-width: 700px;
+      margin: auto;
+      background: white;
       padding: 30px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    .result-table {
-      margin-top: 20px;
-    }
-    /* Ensure the copy button (and toggle button) are centered */
-    .group-copy-button,
-    .toggle-cell {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    /* Optional: style the table minimally */
-    #resultTable td {
-      vertical-align: middle;
-      padding: 0.75rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
   </style>
 </head>
-<body>
-  <div class="card-container">
-    <h2 class="mb-4 text-center">Serial Number Generator</h2>
-    <div class="row g-3">
-      <div class="col-md-6">
-        <label for="codesInput" class="form-label">Codes (one per line):</label>
-        <textarea id="codesInput" class="form-control" rows="5" placeholder="e.g., ABC123"></textarea>
+<body class="p-5">
+  
+  <div class="card">
+    <h2 class="text-2xl font-semibold text-center mb-4">Serial Number Generator</h2>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="text-sm font-medium">Codes (one per line):</label>
+        <textarea id="codesInput" class="w-full p-2 border rounded-md shadow-sm" rows="4"></textarea>
       </div>
-      <div class="col-md-6">
-        <label for="quantitiesInput" class="form-label">Quantities (one per line):</label>
-        <textarea id="quantitiesInput" class="form-control" rows="5" placeholder="e.g., 5"></textarea>
+      <div>
+        <label class="text-sm font-medium">Quantities (one per line):</label>
+        <textarea id="quantitiesInput" class="w-full p-2 border rounded-md shadow-sm" rows="4"></textarea>
       </div>
-      <div class="col-md-6">
-        <label for="prefixInput" class="form-label">Prefix:</label>
-        <input type="text" id="prefixInput" class="form-control" placeholder="Optional prefix">
+      
+      <div>
+        <label class="text-sm font-medium">Prefix:</label>
+        <input type="text" id="prefixInput" class="w-full p-2 border rounded-md shadow-sm">
       </div>
-      <div class="col-md-6">
-        <label for="suffixInput" class="form-label">Suffix:</label>
-        <input type="text" id="suffixInput" class="form-control" placeholder="Optional suffix">
+      <div>
+        <label class="text-sm font-medium">Suffix:</label>
+        <input type="text" id="suffixInput" class="w-full p-2 border rounded-md shadow-sm">
       </div>
-      <div class="col-md-6">
-        <label for="dateInput" class="form-label">Date:</label>
-        <input type="date" id="dateInput" class="form-control">
+
+      <div>
+        <label class="text-sm font-medium">Date:</label>
+        <input type="date" id="dateInput" class="w-full p-2 border rounded-md shadow-sm">
       </div>
-      <div class="col-md-6">
-        <label for="brandInput" class="form-label">Brand:</label>
-        <select id="brandInput" class="form-select">
+      <div>
+        <label class="text-sm font-medium">Brand:</label>
+        <select id="brandInput" class="w-full p-2 border rounded-md shadow-sm">
           <option value="">None</option>
           <option value="B1">Brand 1</option>
           <option value="B2">Brand 2</option>
           <option value="B3">Brand 3</option>
         </select>
       </div>
-      <div class="col-md-6">
-        <label for="separatorInput" class="form-label">Separator:</label>
-        <input type="text" id="separatorInput" class="form-control" placeholder="e.g., -">
+
+      <div>
+        <label class="text-sm font-medium">Separator:</label>
+        <input type="text" id="separatorInput" class="w-full p-2 border rounded-md shadow-sm">
       </div>
-      <div class="col-md-6 d-flex align-items-center">
-        <div class="form-check mt-3">
-          <input class="form-check-input" type="checkbox" id="capitalizationCheckbox">
-          <label class="form-check-label" for="capitalizationCheckbox">
-            Capitalize generated codes
-          </label>
-        </div>
+      <div class="flex items-center">
+        <input class="mr-2" type="checkbox" id="capitalizationCheckbox">
+        <label class="text-sm font-medium">Capitalize generated codes</label>
       </div>
     </div>
-    <div class="text-center my-4">
-      <button onclick="generateSerialNumbers()" class="btn btn-primary me-2">Generate</button>
-      <button onclick="clearInputs()" class="btn btn-secondary">Clear</button>
+
+    <div class="text-center mt-5">
+      <button onclick="generateSerialNumbers()" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600">Generate</button>
+      <button onclick="clearInputs()" class="px-4 py-2 bg-gray-400 text-white font-semibold rounded-md shadow-md hover:bg-gray-500 ml-2">Clear</button>
     </div>
-    <div class="result-table">
-      <table id="resultTable" class="table table-bordered"></table>
+
+    <div class="result-table mt-5">
+      <table id="resultTable" class="w-full border-collapse border border-gray-300 rounded-lg"></table>
     </div>
-    <footer class="text-center mt-4">
-      <p class="mb-0">Coded by Chethan</p>
+
+    <footer class="text-center mt-4 text-gray-500">
+      <p>Coded by Chethan</p>
     </footer>
   </div>
 
-  <!-- Font Awesome (for icons if needed) -->
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-  <!-- XLSX Library (if needed) -->
-  <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
   <script>
-    // Display a group of serials in the table.
-    // It shows the first two rows, then adds a toggle row if there are more.
     function displaySerialGroup(table, code, serials) {
       var tbody = document.createElement("tbody");
 
       for (var i = 0; i < serials.length; i++) {
         var row = document.createElement("tr");
-        // Hide extra rows (beyond the first 2) by default.
         if (i >= 2) {
           row.classList.add("extra-row");
           row.style.display = "none";
         }
-        // Code cell
+
         var codeCell = document.createElement("td");
         codeCell.textContent = code;
-        // Serial cell
+        codeCell.className = "border p-2 text-center";
+
         var serialCell = document.createElement("td");
         serialCell.textContent = serials[i];
-        // Action cell (for copy button on the first row)
+        serialCell.className = "border p-2 text-center";
+
         var actionCell = document.createElement("td");
+        actionCell.className = "border p-2 text-center";
         if (i === 0) {
           var copyBtn = document.createElement("button");
-          copyBtn.className = "btn btn-success btn-sm";
+          copyBtn.className = "px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600";
           copyBtn.textContent = "Copy Group";
           copyBtn.addEventListener("click", function () {
             copySerialGroup(serials);
           });
           actionCell.appendChild(copyBtn);
         }
+
         row.appendChild(codeCell);
         row.appendChild(serialCell);
         row.appendChild(actionCell);
         tbody.appendChild(row);
       }
-      // If there are extra rows, add a toggle button row.
+
       if (serials.length > 2) {
         var toggleRow = document.createElement("tr");
         var toggleCell = document.createElement("td");
         toggleCell.colSpan = 3;
-        toggleCell.className = "toggle-cell";
+        toggleCell.className = "text-center p-2";
         var toggleBtn = document.createElement("button");
-        toggleBtn.className = "btn btn-outline-secondary btn-sm";
+        toggleBtn.className = "px-3 py-1 bg-gray-500 text-white rounded-md hover:bg-gray-600";
         toggleBtn.textContent = "Show More";
         toggleBtn.addEventListener("click", function () {
           var extraRows = tbody.querySelectorAll(".extra-row");
@@ -158,22 +141,17 @@
         toggleRow.appendChild(toggleCell);
         tbody.appendChild(toggleRow);
       }
+
       table.appendChild(tbody);
     }
 
-    // Copies the group of serial numbers to the clipboard.
     function copySerialGroup(serials) {
       var copyText = serials.join("\n");
       navigator.clipboard.writeText(copyText)
-        .then(function () {
-          console.log("Serial numbers copied successfully!");
-        })
-        .catch(function (err) {
-          console.error("Failed to copy serial numbers: ", err);
-        });
+        .then(() => console.log("Serial numbers copied successfully!"))
+        .catch(err => console.error("Failed to copy serial numbers:", err));
     }
 
-    // Generates the serial numbers based on the user inputs.
     function generateSerialNumbers() {
       var codesInput = document.getElementById("codesInput").value;
       var quantitiesInput = document.getElementById("quantitiesInput").value;
@@ -200,42 +178,8 @@
       }
     }
 
-    // Generates an array of serial numbers based on the provided parameters.
-    function generateSerials(code, quantity, prefix, suffix, date, brand, separator, capitalize) {
-      var serials = [];
-      for (var i = 0; i < quantity; i++) {
-        var serial = "";
-        if (prefix !== "") {
-          serial += prefix + separator;
-        }
-        serial += code + separator + (i + 1);
-        if (date !== "") {
-          serial += separator + date;
-        }
-        if (brand !== "") {
-          serial = brand + separator + serial;
-        }
-        if (suffix !== "") {
-          serial += separator + suffix;
-        }
-        if (capitalize) {
-          serial = serial.toUpperCase();
-        }
-        serials.push(serial);
-      }
-      return serials;
-    }
-
-    // Clears all inputs and the result table.
     function clearInputs() {
-      document.getElementById("codesInput").value = "";
-      document.getElementById("quantitiesInput").value = "";
-      document.getElementById("prefixInput").value = "";
-      document.getElementById("suffixInput").value = "";
-      document.getElementById("dateInput").value = "";
-      document.getElementById("brandInput").value = "";
-      document.getElementById("separatorInput").value = "";
-      document.getElementById("capitalizationCheckbox").checked = false;
+      document.querySelectorAll("input, textarea").forEach(input => input.value = "");
       document.getElementById("resultTable").innerHTML = "";
     }
   </script>
