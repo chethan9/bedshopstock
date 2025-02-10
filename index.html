@@ -12,174 +12,111 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #f6f6f6;
+      background: #f9fafb;
       color: #2d2d2d;
     }
-
+    .sidebar {
+      width: 250px;
+      background: white;
+      height: 100vh;
+      padding: 20px;
+      border-right: 1px solid #e5e7eb;
+    }
     .card {
-      max-width: 700px;
-      margin: auto;
       background: white;
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1px solid #e1e1e1;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
-
     .input {
       width: 100%;
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 6px;
-      background: white;
       font-size: 14px;
-      transition: border-color 0.2s ease-in-out, box-shadow 0.2s;
+      transition: border-color 0.2s ease-in-out;
     }
-
     .input:focus {
       border-color: #2563eb;
       outline: none;
-      box-shadow: 0 0 3px rgba(37, 99, 235, 0.2);
     }
-
     .button {
       padding: 8px 12px;
       border-radius: 6px;
       font-size: 14px;
       font-weight: 500;
-      border: 1px solid #ddd;
-      transition: all 0.2s ease-in-out;
+      transition: all 0.2s;
     }
-
     .button-primary {
       background: #2563eb;
       color: white;
-      border: none;
       box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
     }
-
-    .button-primary:hover {
-      background: #1d4ed8;
-      transform: scale(1.02);
-    }
-
     .button-secondary {
-      background: #f9f9f9;
+      background: #f3f4f6;
       color: #333;
       border: 1px solid #e0e0e0;
     }
-
     .button-secondary:hover {
-      background: #f1f1f1;
+      background: #e5e7eb;
     }
-
-    .copy-btn {
-      background: white;
-      border: 1px solid #ddd;
-      padding: 6px 10px;
-      font-size: 14px;
+    .table-header {
+      background: #f3f4f6;
       font-weight: 500;
-      border-radius: 6px;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .copy-btn:hover {
-      background: #f3f3f3;
-    }
-
-    .table-group {
-      background: #f8f9fa;
-      font-weight: 500;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 12px;
-    }
-
-    .expand-controls {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-      margin-bottom: 10px;
     }
   </style>
 </head>
-<body class="p-5">
-
-  <div class="card">
-    <h2 class="text-lg font-medium text-center mb-4">Serial Number Generator</h2>
-
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="text-sm font-medium mb-1 block">Codes (one per line):</label>
-        <textarea id="codesInput" class="input" rows="3"></textarea>
-      </div>
-      <div>
-        <label class="text-sm font-medium mb-1 block">Quantities (one per line):</label>
-        <textarea id="quantitiesInput" class="input" rows="3"></textarea>
+<body class="flex">
+  
+  <aside class="sidebar">
+    <h2 class="text-lg font-semibold">Dashboard</h2>
+    <ul class="mt-5 space-y-3">
+      <li class="text-gray-700 font-medium">Home</li>
+      <li class="text-gray-500 hover:text-gray-700 cursor-pointer">Settings</li>
+      <li class="text-gray-500 hover:text-gray-700 cursor-pointer">Reports</li>
+    </ul>
+  </aside>
+  
+  <main class="p-6 w-full">
+    <div class="card">
+      <h2 class="text-lg font-semibold">Serial Number Generator</h2>
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <div>
+          <label class="text-sm font-medium mb-1 block">Codes (one per line):</label>
+          <textarea id="codesInput" class="input" rows="3"></textarea>
+        </div>
+        <div>
+          <label class="text-sm font-medium mb-1 block">Quantities (one per line):</label>
+          <textarea id="quantitiesInput" class="input" rows="3"></textarea>
+        </div>
       </div>
       
-      <div>
-        <label class="text-sm font-medium mb-1 block">Prefix:</label>
-        <input type="text" id="prefixInput" class="input">
-      </div>
-      <div>
-        <label class="text-sm font-medium mb-1 block">Suffix:</label>
-        <input type="text" id="suffixInput" class="input">
-      </div>
-
-      <div>
-        <label class="text-sm font-medium mb-1 block">Date:</label>
-        <input type="date" id="dateInput" class="input">
-      </div>
-      <div>
-        <label class="text-sm font-medium mb-1 block">Brand:</label>
-        <select id="brandInput" class="input">
-          <option value="">None</option>
-          <option value="B1">Brand 1</option>
-          <option value="B2">Brand 2</option>
-          <option value="B3">Brand 3</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="text-sm font-medium mb-1 block">Separator:</label>
-        <input type="text" id="separatorInput" class="input">
-      </div>
-      <div class="flex items-center">
-        <input class="mr-2" type="checkbox" id="capitalizationCheckbox">
-        <label class="text-sm font-medium">Capitalize generated codes</label>
+      <div class="text-right mt-5">
+        <button onclick="generateSerialNumbers()" class="button button-primary">Generate</button>
+        <button onclick="clearInputs()" class="button button-secondary ml-2">Clear</button>
       </div>
     </div>
 
-    <div class="text-center mt-5">
-      <button onclick="generateSerialNumbers()" class="button button-primary">Generate</button>
-      <button onclick="clearInputs()" class="button button-secondary ml-2">Clear</button>
+    <div class="card mt-6">
+      <h3 class="text-lg font-medium">Generated Serials</h3>
+      <table class="w-full mt-3 border border-gray-300 rounded-lg">
+        <thead class="table-header">
+          <tr>
+            <th class="p-2 border">Code</th>
+            <th class="p-2 border">Serial</th>
+            <th class="p-2 border">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="resultTable"></tbody>
+      </table>
     </div>
-
-    <div class="expand-controls mt-4">
-      <button class="button button-secondary" onclick="expandAll()">Expand All</button>
-      <button class="button button-secondary" onclick="minimizeAll()">Minimize All</button>
-    </div>
-
-    <div class="mt-5">
-      <table id="resultTable" class="w-full border-collapse border border-gray-300 rounded-lg"></table>
-    </div>
-
-    <footer class="text-center mt-4 text-gray-500 text-sm">
-      <p>Coded by Chethan</p>
-    </footer>
-  </div>
+  </main>
 
   <script>
     function generateSerialNumbers() {
       let codes = document.getElementById("codesInput").value.split("\n").map(x => x.trim()).filter(x => x !== "");
       let quantities = document.getElementById("quantitiesInput").value.split("\n").map(x => x.trim()).filter(x => x !== "");
-
-      if (codes.length !== quantities.length) {
-        alert("Error: Number of codes and quantities must match.");
-        return;
-      }
 
       let resultTable = document.getElementById("resultTable");
       resultTable.innerHTML = "";
@@ -193,35 +130,22 @@
           serials.push(`B1${code}${j}`);
         }
 
-        displaySerialGroup(resultTable, code, serials);
+        serials.forEach(serial => {
+          let row = document.createElement("tr");
+          row.innerHTML = `<td class='border p-2'>${code}</td><td class='border p-2'>${serial}</td>
+                           <td class='border p-2'><button class='button button-secondary' onclick='copySerial("${serial}")'>Copy</button></td>`;
+          resultTable.appendChild(row);
+        });
       }
     }
 
-    function displaySerialGroup(table, code, serials) {
-      let tbody = document.createElement("tbody");
-
-      let headerRow = document.createElement("tr");
-      headerRow.className = "table-group";
-      headerRow.innerHTML = `
-        <td class="border p-2 text-left">${code}</td>
-        <td colspan="2" class="border p-2 text-right">
-          <button class="copy-btn text-sm" onclick="copySerialGroup('${serials.join("\n")}')">Copy Group</button>
-        </td>`;
-      tbody.appendChild(headerRow);
-
-      serials.forEach((serial, index) => {
-        let row = document.createElement("tr");
-        row.innerHTML = `<td class="border p-2 text-left"></td>
-                         <td class="border p-2 text-left">${serial}</td>
-                         <td class="border p-2 text-left"></td>`;
-        tbody.appendChild(row);
-      });
-
-      table.appendChild(tbody);
+    function copySerial(serial) {
+      navigator.clipboard.writeText(serial).then(() => alert("Copied: " + serial));
     }
 
-    function copySerialGroup(serials) {
-      navigator.clipboard.writeText(serials).then(() => alert("Copied Entire Group!"));
+    function clearInputs() {
+      document.querySelectorAll("input, textarea").forEach(input => input.value = "");
+      document.getElementById("resultTable").innerHTML = "";
     }
   </script>
 </body>
