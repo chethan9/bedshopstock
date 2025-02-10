@@ -16,16 +16,22 @@
       max-width: 700px;
       margin: auto;
       background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .table-container {
+      overflow-x: auto;
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body class="p-5">
   
   <div class="card">
-    <h2 class="text-2xl font-semibold text-center mb-4">Serial Number Generator</h2>
+    <h2 class="text-xl font-semibold text-center mb-4">Serial Number Generator</h2>
 
     <div class="grid grid-cols-2 gap-4">
       <div>
@@ -59,55 +65,6 @@
           <option value="ANHUI CRAFTS">ANHUI CRAFTS</option>
           <option value="APRICOT">APRICOT</option>
           <option value="ARTIS">ARTIS</option>
-          <option value="AUPING">AUPING</option>
-          <option value="AYNHOE PARK">AYNHOE PARK</option>
-          <option value="BAYKENT">BAYKENT</option>
-          <option value="BRINKHAUS">BRINKHAUS</option>
-          <option value="CAP DESIGN">CAP DESIGN</option>
-          <option value="CARPE DIEM">CARPE DIEM</option>
-          <option value="CENTA STAR">CENTA STAR</option>
-          <option value="CERABELLA">CERABELLA</option>
-          <option value="COLUNEX">COLUNEX</option>
-          <option value="DELIS">DELIS</option>
-          <option value="DOROTHEE LEHNEN">DOROTHEE LEHNEN</option>
-          <option value="ERGOMOTION">ERGOMOTION</option>
-          <option value="ESTER & ERIK">ESTER & ERIK</option>
-          <option value="EVERGO">EVERGO</option>
-          <option value="FAVEX">FAVEX</option>
-          <option value="FERNEX">FERNEX</option>
-          <option value="FOSHAN">FOSHAN</option>
-          <option value="GETHA">GETHA</option>
-          <option value="GREEN WOOD">GREEN WOOD</option>
-          <option value="HEVIN">HEVIN</option>
-          <option value="JAY BE">JAY BE</option>
-          <option value="KANG">KANG</option>
-          <option value="KING KOIL">KING KOIL</option>
-          <option value="KINGCLEAN ELECTRIC">KINGCLEAN ELECTRIC</option>
-          <option value="KLUFT">KLUFT</option>
-          <option value="LYM">LYM</option>
-          <option value="MAKTIEL">MAKTIEL</option>
-          <option value="MANJARET AHMAD">MANJARET AHMAD</option>
-          <option value="MAYA">MAYA</option>
-          <option value="MIMAJ">MIMAJ</option>
-          <option value="MOSHY">MOSHY</option>
-          <option value="MUUTO">MUUTO</option>
-          <option value="NATURES COLLECTION">NATURES COLLECTION</option>
-          <option value="NINGBO">NINGBO</option>
-          <option value="OTHERS">OTHERS</option>
-          <option value="PRIME SELECTED">PRIME SELECTED</option>
-          <option value="RESTONIC">RESTONIC</option>
-          <option value="REVERIE">REVERIE</option>
-          <option value="ROOM">ROOM</option>
-          <option value="RUDI">RUDI</option>
-          <option value="SAPSA">SAPSA</option>
-          <option value="SEEDS">SEEDS</option>
-          <option value="SIGNORIA">SIGNORIA</option>
-          <option value="SPRING AIR">SPRING AIR</option>
-          <option value="TECHNOGEL">TECHNOGEL</option>
-          <option value="TEMPRAKON">TEMPRAKON</option>
-          <option value="TEMPUR">TEMPUR</option>
-          <option value="TRANSPARENT">TRANSPARENT</option>
-          <option value="UNITED COMFORT">UNITED COMFORT</option>
           <option value="YATSAN">YATSAN</option>
           <option value="YEELIGHT">YEELIGHT</option>
           <option value="VISPRING">VISPRING</option>
@@ -116,8 +73,12 @@
     </div>
 
     <div class="text-center mt-5">
-      <button onclick="generateSerialNumbers()" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600">Generate</button>
-      <button onclick="clearInputs()" class="px-4 py-2 bg-gray-400 text-white font-semibold rounded-md shadow-md hover:bg-gray-500 ml-2">Clear</button>
+      <button onclick="generateSerialNumbers()" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600">Generate</button>
+      <button onclick="clearInputs()" class="px-4 py-2 bg-gray-400 text-white rounded-md shadow-md hover:bg-gray-500 ml-2">Clear</button>
+    </div>
+
+    <div class="table-container mt-5">
+      <table id="resultTable" class="w-full border-collapse border border-gray-300 rounded-lg"></table>
     </div>
 
     <footer class="text-center mt-4 text-gray-500">
@@ -129,24 +90,75 @@
     function validateQuantity() {
       let quantitiesInput = document.getElementById("quantitiesInput");
       let lines = quantitiesInput.value.split("\n");
-      for (let i = 0; i < lines.length; i++) {
-        if (isNaN(lines[i]) || lines[i].trim() === "") {
-          quantitiesInput.value = quantitiesInput.value.substring(0, quantitiesInput.value.length - 1);
-        }
-      }
+      let newLines = lines.map(line => line.replace(/\D/g, '')); // Remove non-numeric characters
+      quantitiesInput.value = newLines.join("\n");
     }
 
     function generateSerialNumbers() {
       let codes = document.getElementById("codesInput").value.split("\n").map(x => x.trim()).filter(x => x !== "");
       let quantities = document.getElementById("quantitiesInput").value.split("\n").map(x => x.trim()).filter(x => x !== "");
+
       if (codes.length !== quantities.length) {
         alert("Error: Number of codes and quantities must match.");
         return;
       }
+
+      let resultTable = document.getElementById("resultTable");
+      resultTable.innerHTML = "";
+
+      for (let i = 0; i < codes.length; i++) {
+        let code = codes[i];
+        let quantity = parseInt(quantities[i]);
+        let serials = [];
+
+        for (let j = 1; j <= quantity; j++) {
+          serials.push(`B1${code}${j}`);
+        }
+
+        displaySerialGroup(resultTable, code, serials);
+      }
+    }
+
+    function displaySerialGroup(table, code, serials) {
+      let tbody = document.createElement("tbody");
+
+      serials.slice(0, 2).forEach(serial => {
+        let row = document.createElement("tr");
+        row.innerHTML = `<td class="border p-2 text-center">${code}</td>
+                         <td class="border p-2 text-center">${serial}</td>
+                         <td class="border p-2 text-center">
+                           <button class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600" onclick="copySerialGroup('${serials.join("\n")}')">Copy Group</button>
+                         </td>`;
+        tbody.appendChild(row);
+      });
+
+      if (serials.length > 2) {
+        let showMoreRow = document.createElement("tr");
+        showMoreRow.innerHTML = `<td colspan="3" class="text-center p-2">
+                                  <button class="px-3 py-1 bg-gray-500 text-white rounded-md hover:bg-gray-600 show-more-btn">Show More</button>
+                                 </td>`;
+        tbody.appendChild(showMoreRow);
+
+        showMoreRow.querySelector(".show-more-btn").addEventListener("click", function() {
+          let newRows = serials.slice(2).map(serial => 
+            `<tr><td class="border p-2 text-center">${code}</td><td class="border p-2 text-center">${serial}</td><td class="border p-2 text-center"></td></tr>`
+          ).join("");
+
+          showMoreRow.insertAdjacentHTML("beforebegin", newRows);
+          this.remove();
+        });
+      }
+
+      table.appendChild(tbody);
+    }
+
+    function copySerialGroup(serials) {
+      navigator.clipboard.writeText(serials).then(() => alert("Copied!"));
     }
 
     function clearInputs() {
       document.querySelectorAll("input, textarea").forEach(input => input.value = "");
+      document.getElementById("resultTable").innerHTML = "";
     }
   </script>
 </body>
