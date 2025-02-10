@@ -34,7 +34,7 @@
       </div>
       <div>
         <label class="text-sm font-medium">Quantities (one per line):</label>
-        <textarea id="quantitiesInput" class="w-full p-2 border rounded-md shadow-sm" rows="4"></textarea>
+        <textarea id="quantitiesInput" class="w-full p-2 border rounded-md shadow-sm" rows="4" oninput="validateQuantity()"></textarea>
       </div>
       
       <div>
@@ -54,19 +54,64 @@
         <label class="text-sm font-medium">Brand:</label>
         <select id="brandInput" class="w-full p-2 border rounded-md shadow-sm">
           <option value="">None</option>
-          <option value="B1">Brand 1</option>
-          <option value="B2">Brand 2</option>
-          <option value="B3">Brand 3</option>
+          <option value="AEOROFOAM">AEOROFOAM</option>
+          <option value="ANAMETAL">ANAMETAL</option>
+          <option value="ANHUI CRAFTS">ANHUI CRAFTS</option>
+          <option value="APRICOT">APRICOT</option>
+          <option value="ARTIS">ARTIS</option>
+          <option value="AUPING">AUPING</option>
+          <option value="AYNHOE PARK">AYNHOE PARK</option>
+          <option value="BAYKENT">BAYKENT</option>
+          <option value="BRINKHAUS">BRINKHAUS</option>
+          <option value="CAP DESIGN">CAP DESIGN</option>
+          <option value="CARPE DIEM">CARPE DIEM</option>
+          <option value="CENTA STAR">CENTA STAR</option>
+          <option value="CERABELLA">CERABELLA</option>
+          <option value="COLUNEX">COLUNEX</option>
+          <option value="DELIS">DELIS</option>
+          <option value="DOROTHEE LEHNEN">DOROTHEE LEHNEN</option>
+          <option value="ERGOMOTION">ERGOMOTION</option>
+          <option value="ESTER & ERIK">ESTER & ERIK</option>
+          <option value="EVERGO">EVERGO</option>
+          <option value="FAVEX">FAVEX</option>
+          <option value="FERNEX">FERNEX</option>
+          <option value="FOSHAN">FOSHAN</option>
+          <option value="GETHA">GETHA</option>
+          <option value="GREEN WOOD">GREEN WOOD</option>
+          <option value="HEVIN">HEVIN</option>
+          <option value="JAY BE">JAY BE</option>
+          <option value="KANG">KANG</option>
+          <option value="KING KOIL">KING KOIL</option>
+          <option value="KINGCLEAN ELECTRIC">KINGCLEAN ELECTRIC</option>
+          <option value="KLUFT">KLUFT</option>
+          <option value="LYM">LYM</option>
+          <option value="MAKTIEL">MAKTIEL</option>
+          <option value="MANJARET AHMAD">MANJARET AHMAD</option>
+          <option value="MAYA">MAYA</option>
+          <option value="MIMAJ">MIMAJ</option>
+          <option value="MOSHY">MOSHY</option>
+          <option value="MUUTO">MUUTO</option>
+          <option value="NATURES COLLECTION">NATURES COLLECTION</option>
+          <option value="NINGBO">NINGBO</option>
+          <option value="OTHERS">OTHERS</option>
+          <option value="PRIME SELECTED">PRIME SELECTED</option>
+          <option value="RESTONIC">RESTONIC</option>
+          <option value="REVERIE">REVERIE</option>
+          <option value="ROOM">ROOM</option>
+          <option value="RUDI">RUDI</option>
+          <option value="SAPSA">SAPSA</option>
+          <option value="SEEDS">SEEDS</option>
+          <option value="SIGNORIA">SIGNORIA</option>
+          <option value="SPRING AIR">SPRING AIR</option>
+          <option value="TECHNOGEL">TECHNOGEL</option>
+          <option value="TEMPRAKON">TEMPRAKON</option>
+          <option value="TEMPUR">TEMPUR</option>
+          <option value="TRANSPARENT">TRANSPARENT</option>
+          <option value="UNITED COMFORT">UNITED COMFORT</option>
+          <option value="YATSAN">YATSAN</option>
+          <option value="YEELIGHT">YEELIGHT</option>
+          <option value="VISPRING">VISPRING</option>
         </select>
-      </div>
-
-      <div>
-        <label class="text-sm font-medium">Separator:</label>
-        <input type="text" id="separatorInput" class="w-full p-2 border rounded-md shadow-sm">
-      </div>
-      <div class="flex items-center">
-        <input class="mr-2" type="checkbox" id="capitalizationCheckbox">
-        <label class="text-sm font-medium">Capitalize generated codes</label>
       </div>
     </div>
 
@@ -75,112 +120,33 @@
       <button onclick="clearInputs()" class="px-4 py-2 bg-gray-400 text-white font-semibold rounded-md shadow-md hover:bg-gray-500 ml-2">Clear</button>
     </div>
 
-    <div class="result-table mt-5">
-      <table id="resultTable" class="w-full border-collapse border border-gray-300 rounded-lg"></table>
-    </div>
-
     <footer class="text-center mt-4 text-gray-500">
       <p>Coded by Chethan</p>
     </footer>
   </div>
 
   <script>
-    function displaySerialGroup(table, code, serials) {
-      var tbody = document.createElement("tbody");
-
-      for (var i = 0; i < serials.length; i++) {
-        var row = document.createElement("tr");
-        if (i >= 2) {
-          row.classList.add("extra-row");
-          row.style.display = "none";
+    function validateQuantity() {
+      let quantitiesInput = document.getElementById("quantitiesInput");
+      let lines = quantitiesInput.value.split("\n");
+      for (let i = 0; i < lines.length; i++) {
+        if (isNaN(lines[i]) || lines[i].trim() === "") {
+          quantitiesInput.value = quantitiesInput.value.substring(0, quantitiesInput.value.length - 1);
         }
-
-        var codeCell = document.createElement("td");
-        codeCell.textContent = code;
-        codeCell.className = "border p-2 text-center";
-
-        var serialCell = document.createElement("td");
-        serialCell.textContent = serials[i];
-        serialCell.className = "border p-2 text-center";
-
-        var actionCell = document.createElement("td");
-        actionCell.className = "border p-2 text-center";
-        if (i === 0) {
-          var copyBtn = document.createElement("button");
-          copyBtn.className = "px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600";
-          copyBtn.textContent = "Copy Group";
-          copyBtn.addEventListener("click", function () {
-            copySerialGroup(serials);
-          });
-          actionCell.appendChild(copyBtn);
-        }
-
-        row.appendChild(codeCell);
-        row.appendChild(serialCell);
-        row.appendChild(actionCell);
-        tbody.appendChild(row);
       }
-
-      if (serials.length > 2) {
-        var toggleRow = document.createElement("tr");
-        var toggleCell = document.createElement("td");
-        toggleCell.colSpan = 3;
-        toggleCell.className = "text-center p-2";
-        var toggleBtn = document.createElement("button");
-        toggleBtn.className = "px-3 py-1 bg-gray-500 text-white rounded-md hover:bg-gray-600";
-        toggleBtn.textContent = "Show More";
-        toggleBtn.addEventListener("click", function () {
-          var extraRows = tbody.querySelectorAll(".extra-row");
-          var isHidden = extraRows[0].style.display === "none";
-          extraRows.forEach(function (row) {
-            row.style.display = isHidden ? "table-row" : "none";
-          });
-          toggleBtn.textContent = isHidden ? "Show Less" : "Show More";
-        });
-        toggleCell.appendChild(toggleBtn);
-        toggleRow.appendChild(toggleCell);
-        tbody.appendChild(toggleRow);
-      }
-
-      table.appendChild(tbody);
-    }
-
-    function copySerialGroup(serials) {
-      var copyText = serials.join("\n");
-      navigator.clipboard.writeText(copyText)
-        .then(() => console.log("Serial numbers copied successfully!"))
-        .catch(err => console.error("Failed to copy serial numbers:", err));
     }
 
     function generateSerialNumbers() {
-      var codesInput = document.getElementById("codesInput").value;
-      var quantitiesInput = document.getElementById("quantitiesInput").value;
-      var prefixInput = document.getElementById("prefixInput").value;
-      var suffixInput = document.getElementById("suffixInput").value;
-      var dateInput = document.getElementById("dateInput").value;
-      var brandInput = document.getElementById("brandInput").value;
-      var separatorInput = document.getElementById("separatorInput").value;
-      var capitalizeCheckbox = document.getElementById("capitalizationCheckbox").checked;
-
-      var codes = codesInput.split("\n");
-      var quantities = quantitiesInput.split("\n");
-
-      var resultTable = document.getElementById("resultTable");
-      resultTable.innerHTML = "";
-
-      for (var i = 0; i < codes.length; i++) {
-        var code = codes[i].trim();
-        var quantity = parseInt(quantities[i]);
-        if (!isNaN(quantity) && quantity > 0) {
-          var serials = generateSerials(code, quantity, prefixInput, suffixInput, dateInput, brandInput, separatorInput, capitalizeCheckbox);
-          displaySerialGroup(resultTable, code, serials);
-        }
+      let codes = document.getElementById("codesInput").value.split("\n").map(x => x.trim()).filter(x => x !== "");
+      let quantities = document.getElementById("quantitiesInput").value.split("\n").map(x => x.trim()).filter(x => x !== "");
+      if (codes.length !== quantities.length) {
+        alert("Error: Number of codes and quantities must match.");
+        return;
       }
     }
 
     function clearInputs() {
       document.querySelectorAll("input, textarea").forEach(input => input.value = "");
-      document.getElementById("resultTable").innerHTML = "";
     }
   </script>
 </body>
