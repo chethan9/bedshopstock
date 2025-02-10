@@ -15,19 +15,13 @@
       background: #f4f6f8;
       color: #333;
     }
-    .sidebar {
-      width: 250px;
-      background: white;
-      height: 100vh;
-      padding: 20px;
-      border-right: 1px solid #e5e7eb;
-    }
     .card {
       background: white;
       padding: 20px;
       border-radius: 8px;
       border: 1px solid #e1e1e1;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
     }
     .input {
       width: 100%;
@@ -73,18 +67,9 @@
     }
   </style>
 </head>
-<body class="flex">
+<body class="p-6">
   
-  <aside class="sidebar">
-    <h2 class="text-lg font-semibold">Dashboard</h2>
-    <ul class="mt-5 space-y-3">
-      <li class="text-gray-700 font-medium">Home</li>
-      <li class="text-gray-500 hover:text-gray-700 cursor-pointer">Settings</li>
-      <li class="text-gray-500 hover:text-gray-700 cursor-pointer">Reports</li>
-    </ul>
-  </aside>
-  
-  <main class="p-6 w-full">
+  <main class="max-w-4xl mx-auto">
     <div class="card">
       <h2 class="text-lg font-semibold">Serial Number Generator</h2>
       <div class="grid grid-cols-2 gap-4 mt-4">
@@ -104,7 +89,7 @@
       </div>
     </div>
 
-    <div class="card mt-6">
+    <div class="card">
       <h3 class="text-lg font-medium">Generated Serials</h3>
       <table class="w-full mt-3 border border-gray-300 rounded-lg">
         <thead class="table-header">
