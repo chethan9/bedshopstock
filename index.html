@@ -68,6 +68,11 @@
     .button-secondary:hover {
       background: #e5e7eb;
     }
+
+    .table-group {
+      background: #f8f9fa;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body class="p-5">
@@ -161,38 +166,28 @@
     function displaySerialGroup(table, code, serials) {
       let tbody = document.createElement("tbody");
 
-      serials.slice(0, 2).forEach(serial => {
+      let headerRow = document.createElement("tr");
+      headerRow.className = "table-group";
+      headerRow.innerHTML = `
+        <td class="border p-2 text-center">${code}</td>
+        <td colspan="2" class="border p-2 text-center">
+          <button class="button button-primary text-sm" onclick="copySerialGroup('${serials.join("\n")}')">Copy Group</button>
+        </td>`;
+      tbody.appendChild(headerRow);
+
+      serials.forEach(serial => {
         let row = document.createElement("tr");
-        row.innerHTML = `<td class="border p-2 text-center">${code}</td>
+        row.innerHTML = `<td class="border p-2 text-center"></td>
                          <td class="border p-2 text-center">${serial}</td>
-                         <td class="border p-2 text-center">
-                           <button class="button button-primary text-sm" onclick="copySerialGroup('${serials.join("\n")}')">Copy</button>
-                         </td>`;
+                         <td class="border p-2 text-center"></td>`;
         tbody.appendChild(row);
       });
-
-      if (serials.length > 2) {
-        let showMoreRow = document.createElement("tr");
-        showMoreRow.innerHTML = `<td colspan="3" class="text-center p-2">
-                                  <button class="button button-secondary text-sm show-more-btn">Show More</button>
-                                 </td>`;
-        tbody.appendChild(showMoreRow);
-
-        showMoreRow.querySelector(".show-more-btn").addEventListener("click", function() {
-          let newRows = serials.slice(2).map(serial => 
-            `<tr><td class="border p-2 text-center">${code}</td><td class="border p-2 text-center">${serial}</td><td class="border p-2 text-center"></td></tr>`
-          ).join("");
-
-          showMoreRow.insertAdjacentHTML("beforebegin", newRows);
-          this.remove();
-        });
-      }
 
       table.appendChild(tbody);
     }
 
     function copySerialGroup(serials) {
-      navigator.clipboard.writeText(serials).then(() => alert("Copied!"));
+      navigator.clipboard.writeText(serials).then(() => alert("Copied Entire Group!"));
     }
 
     function clearInputs() {
