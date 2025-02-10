@@ -12,33 +12,34 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #fafafa;
+      background: #f6f6f6;
       color: #2d2d2d;
     }
 
     .card {
-      max-width: 720px;
+      max-width: 680px;
       margin: auto;
       background: white;
-      padding: 24px;
+      padding: 20px;
       border-radius: 10px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e1e1e1;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
     .input {
       width: 100%;
       padding: 10px;
-      border: 1px solid #e5e7eb;
+      border: 1px solid #ddd;
       border-radius: 6px;
       background: white;
       font-size: 14px;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s ease-in-out, box-shadow 0.2s;
     }
 
     .input:focus {
       border-color: #2563eb;
       outline: none;
+      box-shadow: 0 0 3px rgba(37, 99, 235, 0.2);
     }
 
     .button {
@@ -77,11 +78,11 @@
     <div class="grid grid-cols-2 gap-4">
       <div>
         <label class="text-sm font-medium mb-1 block">Codes (one per line):</label>
-        <textarea id="codesInput" class="input" rows="4"></textarea>
+        <textarea id="codesInput" class="input" rows="3"></textarea>
       </div>
       <div>
         <label class="text-sm font-medium mb-1 block">Quantities (one per line):</label>
-        <textarea id="quantitiesInput" class="input" rows="4"></textarea>
+        <textarea id="quantitiesInput" class="input" rows="3"></textarea>
       </div>
       
       <div>
