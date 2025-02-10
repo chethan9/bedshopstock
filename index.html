@@ -12,8 +12,8 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #f9fafb;
-      color: #2d2d2d;
+      background: #f4f6f8;
+      color: #333;
     }
     .sidebar {
       width: 250px;
@@ -27,7 +27,7 @@
       padding: 20px;
       border-radius: 8px;
       border: 1px solid #e1e1e1;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     }
     .input {
       width: 100%;
@@ -36,6 +36,7 @@
       border-radius: 6px;
       font-size: 14px;
       transition: border-color 0.2s ease-in-out;
+      background: #fff;
     }
     .input:focus {
       border-color: #2563eb;
@@ -51,10 +52,15 @@
     .button-primary {
       background: #2563eb;
       color: white;
-      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+      border: none;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+    }
+    .button-primary:hover {
+      background: #1e40af;
+      transform: scale(1.02);
     }
     .button-secondary {
-      background: #f3f4f6;
+      background: #f9f9f9;
       color: #333;
       border: 1px solid #e0e0e0;
     }
