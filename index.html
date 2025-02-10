@@ -17,7 +17,7 @@
     }
 
     .card {
-      max-width: 680px;
+      max-width: 700px;
       margin: auto;
       background: white;
       padding: 20px;
@@ -43,21 +43,22 @@
     }
 
     .button {
-      padding: 10px 14px;
+      padding: 10px 16px;
       border-radius: 6px;
       font-size: 14px;
       font-weight: 500;
-      transition: all 0.2s;
+      transition: all 0.2s ease-in-out;
     }
 
     .button-primary {
       background: #2563eb;
       color: white;
-      box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
+      box-shadow: 0 3px 6px rgba(37, 99, 235, 0.2);
     }
 
     .button-primary:hover {
       background: #1d4ed8;
+      transform: scale(1.03);
     }
 
     .button-secondary {
@@ -72,6 +73,13 @@
     .table-group {
       background: #f8f9fa;
       font-weight: 500;
+    }
+
+    .expand-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -128,6 +136,11 @@
       <button onclick="clearInputs()" class="button button-secondary ml-2">Clear</button>
     </div>
 
+    <div class="expand-controls mt-4">
+      <button class="button button-secondary" onclick="expandAll()">Expand All</button>
+      <button class="button button-secondary" onclick="minimizeAll()">Minimize All</button>
+    </div>
+
     <div class="mt-5">
       <table id="resultTable" class="w-full border-collapse border border-gray-300 rounded-lg"></table>
     </div>
@@ -175,8 +188,10 @@
         </td>`;
       tbody.appendChild(headerRow);
 
-      serials.forEach(serial => {
+      serials.forEach((serial, index) => {
         let row = document.createElement("tr");
+        row.classList.add("group-rows");
+        if (index >= 2) row.style.display = "none";
         row.innerHTML = `<td class="border p-2 text-center"></td>
                          <td class="border p-2 text-center">${serial}</td>
                          <td class="border p-2 text-center"></td>`;
@@ -184,6 +199,16 @@
       });
 
       table.appendChild(tbody);
+    }
+
+    function expandAll() {
+      document.querySelectorAll(".group-rows").forEach(row => row.style.display = "table-row");
+    }
+
+    function minimizeAll() {
+      document.querySelectorAll(".group-rows").forEach((row, index) => {
+        if (index >= 2) row.style.display = "none";
+      });
     }
 
     function copySerialGroup(serials) {
