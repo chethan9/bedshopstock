@@ -73,6 +73,10 @@
     .table-group {
       background: #f8f9fa;
       font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
     }
 
     .expand-controls {
@@ -182,8 +186,8 @@
       let headerRow = document.createElement("tr");
       headerRow.className = "table-group";
       headerRow.innerHTML = `
-        <td class="border p-2 text-center">${code}</td>
-        <td colspan="2" class="border p-2 text-center">
+        <td class="border p-2 text-left">${code}</td>
+        <td colspan="2" class="border p-2 text-right">
           <button class="button button-primary text-sm" onclick="copySerialGroup('${serials.join("\n")}')">Copy Group</button>
         </td>`;
       tbody.appendChild(headerRow);
@@ -192,9 +196,9 @@
         let row = document.createElement("tr");
         row.classList.add("group-rows");
         if (index >= 2) row.style.display = "none";
-        row.innerHTML = `<td class="border p-2 text-center"></td>
-                         <td class="border p-2 text-center">${serial}</td>
-                         <td class="border p-2 text-center"></td>`;
+        row.innerHTML = `<td class="border p-2 text-left"></td>
+                         <td class="border p-2 text-left">${serial}</td>
+                         <td class="border p-2 text-left"></td>`;
         tbody.appendChild(row);
       });
 
